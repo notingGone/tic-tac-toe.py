@@ -76,5 +76,5 @@ def game():
         print(f"You won! Congradulations to {current_player}!")
     else:
         print("Cat's game...")
-    return True
+
 game()
