@@ -5,7 +5,7 @@ import os
 from subprocess import call
 
 def clear_screen():
-    _ = call('clear' if os.name == 'posix' else 'cls')
+    call('clear' if os.name == 'posix' else 'cls')
 
 def print_grid(a):
     grid = [
@@ -76,5 +76,5 @@ def game():
         print(f"You won! Congradulations to {current_player}!")
     else:
         print("Cat's game...")
-
+    return True
 game()
