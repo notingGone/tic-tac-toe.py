@@ -5,32 +5,48 @@ import os
 from subprocess import call
 
 def clear_screen():
+    """Clear the screen with OS appropriate system call."""
     call('clear' if os.name == 'posix' else 'cls')
 
 def print_grid(a):
+    """Print a 3x3 ascii grid with moves filled in from provided array.
+
+    Argument:
+    l -- Cumulative list of length 10 containing all moves with the index mapped
+         to the board as a 10-key layout. Index 0 should be a non-space
+         character for index offset purposes. Any cell on the board that has not
+         been played should contain a single space character (' '). Otherwise,
+         it should contain a corresponding 'X' or 'O'.
+    """
     grid = [
         "     |     |     ",
         "     |     |     ",
-       f"  {a[7]}  |  {a[8]}  |  {a[9]}  ",
+       f"  {l[7]}  |  {l[8]}  |  {l[9]}  ",
         "     |     |     ",
         "     |     |     ",
         "-----------------",
         "     |     |     ",
         "     |     |     ",
-       f"  {a[4]}  |  {a[5]}  |  {a[6]}  ",
+       f"  {l[4]}  |  {l[5]}  |  {l[6]}  ",
         "     |     |     ",
         "     |     |     ",
         "-----------------",
         "     |     |     ",
         "     |     |     ",
-       f"  {a[1]}  |  {a[2]}  |  {a[3]}  ",
+       f"  {l[1]}  |  {l[2]}  |  {l[3]}  ",
         "     |     |     ",
         "     |     |     "
     ]
     clear_screen()
     print('\n'.join(grid))
 
-def get_valid_move(board_array):
+def get_valid_move(board_list):
+    """Get and return a valid, unplayed cell number.
+
+    Argument:
+    board_list -- Cumulative list of length 10 containing all moves.
+                  Used to check if move has already been played.
+    """
     while True:
         move = input("Your move: ")
 
@@ -40,7 +56,7 @@ def get_valid_move(board_array):
             print("That is not a valid number")
             continue
 
-        if not move in range(1,10):
+        if  move not in range(1,10):
             print("There are only cells 1 through 9")
             continue
         if (board_array[move] != ' '):
@@ -49,6 +65,11 @@ def get_valid_move(board_array):
         return move
 
 def has_winner(board_array):
+    """Check possible winning cell combinations; return True if winner is found.
+
+    Argument:
+    board_list -- Cumulative list of length 10 containing all moves.
+    """
     winning_lines = [ [1, 2, 3], [4, 5, 6], [7, 8, 9],  #h'zontal
                       [1, 4, 7], [2, 5, 8], [3, 6, 9],  #vertical
                       [1, 5, 9], [3, 5, 7]  ]           #diagonal
@@ -59,11 +80,19 @@ def has_winner(board_array):
     return False
 
 def toggle_player():
+    """Once assigned to a variable, alternately return 'X' or 'O' when passed into next().
+
+    e.g.
+        toggler = toggle_player()
+        current_player = next(toggler) # -> 'X'
+        current_player = next(toggler) # -> 'O'
+    """
     while True:
         yield 'X'
         yield 'O'
 
 def game():
+    """Play tic-tac-toe."""
     board = ['*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     print_grid(board)
     winner = False
