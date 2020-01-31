@@ -10,6 +10,7 @@ Some of my approach is the same or similar to the provided solution. Other parts
 * Implement robust input validation
 * Modularity and extensibility of code
 * Code readability
+* Follow PEP8 guidelines
 
 Reusability of code was not a practical concern with such a specific challenge.
 
