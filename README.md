@@ -13,4 +13,4 @@ Some of my approach is the same or similar to the provided solution. Other parts
 
 Reusability of code was not a practical concern with such a specific challenge.
 
-**\*** Challenge description omitted due to copyright concerns.
+**\* Challenge description omitted due to copyright concerns.**
