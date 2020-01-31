@@ -32,12 +32,14 @@ def print_grid(a):
 
 def get_valid_move(board_array):
     while True:
-        move = input(f"Your move: ")
+        move = input("Your move: ")
+
         try:
             move = int(move)
         except ValueError:
             print("That is not a valid number")
             continue
+
         if not move in range(1,10):
             print("There are only cells 1 through 9")
             continue
@@ -50,6 +52,7 @@ def has_winner(board_array):
     winning_lines = [ [1, 2, 3], [4, 5, 6], [7, 8, 9],  #h'zontal
                       [1, 4, 7], [2, 5, 8], [3, 6, 9],  #vertical
                       [1, 5, 9], [3, 5, 7]  ]           #diagonal
+
     for cells in winning_lines:
         if board_array[cells[0]] == board_array[cells[1]] == board_array[cells[2]] != ' ':
             return True
@@ -65,6 +68,7 @@ def game():
     print_grid(board)
     winner = False
     get_player = toggle_player()
+
     while ' ' in board and winner == False:
         current_player = next(get_player)
         print(f"{current_player}'s turn. ", end='')
@@ -72,6 +76,7 @@ def game():
         board[current_move] = current_player
         winner = has_winner(board)
         print_grid(board)
+
     if winner:
         print(f"You won! Congradulations to {current_player}!")
     else:
