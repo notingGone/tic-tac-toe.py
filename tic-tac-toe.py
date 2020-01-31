@@ -60,7 +60,7 @@ def get_valid_move(board_list):
         if  move not in range(1,10):
             print('There are only cells 1 through 9')
             continue
-        if (board_array[move] != ' '):
+        if (board_list[move] != ' '):
             print('That square has already been played')
             continue
         return move
