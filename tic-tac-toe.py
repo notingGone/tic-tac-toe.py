@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 import os
@@ -30,11 +30,9 @@ def print_grid(a):
     clear_screen()
     print('\n'.join(grid))
 
-def get_valid_move(moves):
-    if moves.count("O") == moves.count("X"): player = "X"
-    else: player = "O"
+def get_valid_move(board_array):
     while True:
-        move = input(f"{player.upper()}'s turn: ")
+        move = input(f"Your move: ")
         try:
             move = int(move)
         except ValueError:
@@ -43,32 +41,39 @@ def get_valid_move(moves):
         if not move in range(1,10):
             print("There are only cells 1 through 9")
             continue
-        if (moves[move] != ' '):
+        if (board_array[move] != ' '):
             print("That square has already been played")
             continue
-        moves[move] = player
-        return
+        return move
 
-def check_for_winner(moves):
-    winners = [ [1, 2, 3], [4, 5, 6], [7, 8, 9], #h'zontal
-                [1, 4, 7], [2, 5, 8], [3, 6, 9], #vertical
-                [1, 5, 9], [3, 5, 7]             #diagonal
-              ]
-    for line in winners:
-        if moves[line[0]] == moves[line[1]] == moves[line[2]] != ' ':
-            return moves[line[0]]
+def has_winner(board_array):
+    winning_lines = [ [1, 2, 3], [4, 5, 6], [7, 8, 9],  #h'zontal
+                      [1, 4, 7], [2, 5, 8], [3, 6, 9],  #vertical
+                      [1, 5, 9], [3, 5, 7]  ]           #diagonal
+    for cells in winning_lines:
+        if board_array[cells[0]] == board_array[cells[1]] == board_array[cells[2]] != ' ':
+            return True
     return False
 
+def toggle_player():
+    while True:
+        yield 'X'
+        yield 'O'
+
 def game():
-    moves = ['*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-    print_grid(moves)
+    board = ['*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    print_grid(board)
     winner = False
-    while ' ' in moves and winner == False:
-        get_valid_move(moves)
-        winner = check_for_winner(moves)
-        print_grid(moves)
+    get_player = toggle_player()
+    while ' ' in board and winner == False:
+        current_player = next(get_player)
+        print(f"{current_player}'s turn. ", end='')
+        current_move = get_valid_move(board)
+        board[current_move] = current_player
+        winner = has_winner(board)
+        print_grid(board)
     if winner:
-        print(f"Congradulations to {winner}!\nYou won!")
+        print(f"You won! Congradulations to {current_player}!")
     else:
         print("Cat's game...")
 
