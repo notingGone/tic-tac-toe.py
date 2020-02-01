@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+"""This script plays a little game of tic-tac-toe in your console."""
+
 import os
 from subprocess import call
 
@@ -9,7 +11,7 @@ def clear_screen():
     call('clear' if os.name == 'posix' else 'cls')
 
 
-def print_grid(l):
+def print_grid(moves_arr):
     """Print a 3x3 ascii grid with moves filled in from provided array.
 
     Argument:
@@ -23,19 +25,19 @@ def print_grid(l):
     grid = [
         '     |     |     ',
         '     |     |     ',
-       f'  {l[7]}  |  {l[8]}  |  {l[9]}  ',
+        '  {}  |  {}  |  {}  '.format(moves_arr[7], moves_arr[8], moves_arr[9]),
         '     |     |     ',
         '     |     |     ',
         '-----------------',
         '     |     |     ',
         '     |     |     ',
-       f'  {l[4]}  |  {l[5]}  |  {l[6]}  ',
+        '  {}  |  {}  |  {}  '.format(moves_arr[4], moves_arr[5], moves_arr[6]),
         '     |     |     ',
         '     |     |     ',
         '-----------------',
         '     |     |     ',
         '     |     |     ',
-       f'  {l[1]}  |  {l[2]}  |  {l[3]}  ',
+        '  {}  |  {}  |  {}  '.format(moves_arr[1], moves_arr[2], moves_arr[3]),
         '     |     |     ',
         '     |     |     '
     ]
@@ -57,10 +59,10 @@ def get_valid_move(board_list):
         except ValueError:
             print('That is not a valid number')
             continue
-        if  move not in range(1,10):
+        if  move not in range(1, 10):
             print('There are only cells 1 through 9')
             continue
-        if (board_list[move] != ' '):
+        if board_list[move] != ' ':
             print('That square has already been played')
             continue
         return move
@@ -107,7 +109,7 @@ def game():
     winner = False
     get_player = toggle_player()
 
-    while ' ' in board and winner == False:
+    while ' ' in board and not winner:
         current_player = next(get_player)
         print(f"{current_player}'s turn. ", end='')
         current_move = get_valid_move(board)
