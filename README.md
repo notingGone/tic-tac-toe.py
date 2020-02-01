@@ -1,4 +1,4 @@
-# tic-tac-toe.py
+# tic_tac_toe.py
 In this tic-tac-toe coding exercise from The Complete Python Bootcamp on Udemy.
 I did not use any prompts, and only used Google for specific syntax/logic. I never searched for "tic-tac-toe python" for instance.
 
